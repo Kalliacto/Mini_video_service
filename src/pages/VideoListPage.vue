@@ -3,7 +3,7 @@
     <main>
         <my-hero />
         <my-search />
-        <video-list />
+        <video-list title="Тренды" />
     </main>
     <my-footer />
 </template>
@@ -29,4 +29,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>

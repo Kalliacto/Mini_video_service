@@ -1,7 +1,7 @@
 <template>
     <section class="video-list">
         <div class="container">
-            <h2 class="video-list__title">Тренды</h2>
+            <h2 class="video-list__title">{{ title }}</h2>
             <ul class="video-list__items">
                 <video-card />
                 <video-card />
@@ -15,7 +15,11 @@ import VideoCard from '@/components/VideoCard.vue';
 
 export default {
     name: 'VideoList',
-
+    props: {
+        title: {
+            type: String,
+        },
+    },
     components: { VideoCard },
 };
 </script>

@@ -110,7 +110,7 @@ export default {
     .hero__container {
         display: grid;
         justify-content: space-between;
-        align-items: center;
+        align-items: start;
     }
     .hero__logo {
         width: 200px;

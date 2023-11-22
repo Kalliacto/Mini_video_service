@@ -13,7 +13,6 @@
             </router-link>
             <router-link class="header__link header__link_favorite" to="/favorite">
                 <span>Избранное</span>
-
                 <svg class="header__icon">
                     <use xlink:href="../assets/img/sprite.svg#star-ob" />
                 </svg>
@@ -53,12 +52,9 @@ export default {
 }
 
 @media screen and (max-width: 550px) {
-    /* .header__container {
-        flex-direction: column;
+    .header__link span {
+        position: fixed;
+        transform: scale(0);
     }
-    TODO: сделать условную отрисовку только звезды
-    .header__logo {
-        margin-bottom: 24px;
-    } */
 }
 </style>

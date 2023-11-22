@@ -2,7 +2,7 @@
     <my-header />
     <main>
         <my-search />
-        <video-list />
+        <video-list title="Избранное" />
     </main>
     <my-footer />
 </template>
@@ -27,4 +27,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>
