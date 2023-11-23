@@ -3,25 +3,20 @@
         <div class="container">
             <h2 class="video-list__title">{{ title }}</h2>
             <ul class="video-list__items">
-                <video-card />
-                <video-card />
+                <video-card v-for="video in props.videos" :video="video" :key="video.id" />
             </ul>
         </div>
     </section>
 </template>
 
-<script>
+<script setup>
 import VideoCard from '@/components/VideoCard.vue';
+import { defineProps } from 'vue';
 
-export default {
-    name: 'VideoList',
-    props: {
-        title: {
-            type: String,
-        },
-    },
-    components: { VideoCard },
-};
+const props = defineProps({
+    videos: Object,
+    title: String,
+});
 </script>
 
 <style scoped>

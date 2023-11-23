@@ -6,6 +6,7 @@ import VideoPage from '@/pages/VideoPage';
 import VideoListPage from '@/pages/VideoListPage';
 import FavoritePage from '@/pages/FavoritePage';
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { createPinia } from 'pinia';
 
 const app = createApp(App);
 app.component('my-header', MyHeader)
@@ -24,6 +25,4 @@ const router = createRouter({
     routes,
 });
 
-app.use(router);
-
-app.mount('#app');
+app.use(router).use(createPinia()).mount('#app');

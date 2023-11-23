@@ -2,10 +2,11 @@
     <router-view></router-view>
 </template>
 
-<script>
-export default {
-    name: 'App',
-};
+<script setup>
+import { useVideoStore } from '@/store/VideoStore';
+
+const store = useVideoStore();
+store.fetchTrendingVideos();
 </script>
 
 <style>

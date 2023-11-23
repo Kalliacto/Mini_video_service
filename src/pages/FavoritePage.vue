@@ -2,29 +2,14 @@
     <my-header />
     <main>
         <my-search />
-        <video-list title="Избранное" />
+        <video-list :title="`Избранное`" />
     </main>
     <my-footer />
 </template>
 
-<script>
+<script setup>
 import MySearch from '@/components/MySearch.vue';
 import VideoList from '@/components/VideoList.vue';
-
-export default {
-    name: 'FavoritePage',
-    computed: {
-        username() {
-            return this.$route.params.username;
-        },
-    },
-    methods: {
-        goToDashboard() {
-            this.$router.push('/favorite');
-        },
-    },
-    components: { MySearch, VideoList },
-};
 </script>
 
 <style></style>

@@ -1,15 +1,15 @@
 <template>
     <li class="video-list__item">
         <article class="video-card">
-            <router-link class="video-list__link" to="/video/:id">
+            <router-link class="video-list__link" :to="'/video/' + props.video.id">
                 <img
                     class="video-card__thumbnail"
-                    src="../assets/img/img2.jpg"
+                    :src="img"
                     alt="Превью видео: Как выжить в Средние века?"
                 />
-                <h3 class="video-card__title">Как выжить в Средние века?</h3>
-                <p class="video-card__channel">Правое полушарие интроверта</p>
-                <p class="video-card__duration">31 мин 25 сек</p>
+                <h3 class="video-card__title">{{ props.video.snippet.title }}</h3>
+                <p class="video-card__channel">{{ props.video.snippet.channelTitle }}</p>
+                <p class="video-card__duration">{{ duration }}</p>
             </router-link>
             <button class="video-card__favorite" type="button" aria-label="Добавить в избранное">
                 <svg class="video-card__icon">
@@ -21,10 +21,19 @@
     </li>
 </template>
 
-<script>
-export default {
-    name: 'VideoCard',
-};
+<script setup>
+import { convertDuration } from '@/utils/utils';
+import { defineProps } from 'vue';
+
+const props = defineProps({
+    video: Object,
+});
+
+console.log();
+
+const img =
+    props.video.snippet.thumbnails.standard?.url || props.video.snippet.thumbnails.high?.url;
+const duration = convertDuration(props.video.contentDetails.duration);
 </script>
 
 <style scoped>

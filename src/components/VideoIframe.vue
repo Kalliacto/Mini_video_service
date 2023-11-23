@@ -1,10 +1,10 @@
 <template>
     <section class="video">
-        <div class="container">
+        <div class="container" v-if="props.video.kind">
             <div class="video__player">
                 <iframe
                     class="video__iframe"
-                    src="https://youtu.be/XjnQLtjFLXM?si=xoDeW6ZIRDutDD-C"
+                    :src="'https://www.youtube.com/embed/' + props.video.id"
                     frameborder="0"
                     allowfullscreen
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -12,14 +12,19 @@
             </div>
             <div class="video__container">
                 <div class="video__content">
-                    <h2 class="video__title">Философия Идущего к реке</h2>
-                    <p class="video__channel">Правое полушарие интроверта</p>
+                    <h2 class="video__title">{{ props.video.snippet?.title }}</h2>
+                    <p class="video__channel">{{ props.video.snippet.channelTitle }}</p>
                     <p class="video__info">
-                        <span class="video__views"> 1 575 581 просмотр </span>
-                        <span class="video__date">Дата премьеры: 16 авг. 2024 г.</span>
+                        <span class="video__views">
+                            Просмотры:
+                            {{ parseInt(props.video.statistics.viewCount).toLocaleString() }} </span
+                        >&nbsp;
+                        <span class="video__date"
+                            >Дата премьеры: {{ formatDate(props.video.snippet.publishedAt) }}</span
+                        >
                     </p>
                     <p class="video__description">
-                        Смотрите наш курс-саммари «Как понимать философию» фоном.
+                        {{ props.video.snippet.description }}
                     </p>
                 </div>
                 <button class="video__link favorite" href="/favorite.html">
@@ -31,13 +36,22 @@
                 </button>
             </div>
         </div>
+        <div class="container" v-else>
+            <my-preload />
+        </div>
     </section>
 </template>
 
-<script>
-export default {
-    name: 'VideoIframe',
-};
+<script setup>
+import { defineProps } from 'vue';
+import { formatDate } from '@/utils/utils';
+import MyPreload from '@/components/MyPreload.vue';
+
+const props = defineProps({
+    video: Object,
+});
+
+console.log(props.video);
 </script>
 
 <style scoped>
