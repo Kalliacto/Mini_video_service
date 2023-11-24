@@ -9,7 +9,9 @@
                 />
                 <h3 class="video-card__title">{{ props.video.snippet.title }}</h3>
                 <p class="video-card__channel">{{ props.video.snippet.channelTitle }}</p>
-                <p class="video-card__duration">{{ duration }}</p>
+                <p class="video-card__duration" v-if="props.video.contentDetails">
+                    {{ convertDuration(props.video.contentDetails.duration) }}
+                </p>
             </router-link>
             <button class="video-card__favorite" type="button" aria-label="Добавить в избранное">
                 <svg class="video-card__icon">
@@ -33,7 +35,6 @@ console.log();
 
 const img =
     props.video.snippet.thumbnails.standard?.url || props.video.snippet.thumbnails.high?.url;
-const duration = convertDuration(props.video.contentDetails.duration);
 </script>
 
 <style scoped>

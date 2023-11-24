@@ -50,8 +50,6 @@ import MyPreload from '@/components/MyPreload.vue';
 const props = defineProps({
     video: Object,
 });
-
-console.log(props.video);
 </script>
 
 <style scoped>

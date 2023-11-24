@@ -1,10 +1,13 @@
 <template>
     <section class="video-list">
-        <div class="container">
+        <div class="container" v-if="Object.keys(props.videos).length">
             <h2 class="video-list__title">{{ title }}</h2>
             <ul class="video-list__items">
                 <video-card v-for="video in props.videos" :video="video" :key="video.id" />
             </ul>
+        </div>
+        <div class="container" v-else>
+            <h2 class="video-list__title">{{ title }} не найдены...</h2>
         </div>
     </section>
 </template>
