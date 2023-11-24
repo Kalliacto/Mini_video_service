@@ -1,4 +1,5 @@
-# vue
+### Промежуточный вариант можно увидеть здесь:
+- https://boisterous-croissant-0b7961.netlify.app/#/
 
 ## Project setup
 ```
