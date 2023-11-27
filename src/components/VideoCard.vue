@@ -13,10 +13,20 @@
                     {{ convertDuration(props.video.contentDetails.duration) }}
                 </p>
             </router-link>
-            <button class="video-card__favorite" type="button" aria-label="Добавить в избранное">
+            <button
+                @click="change(props.video.id)"
+                class="video-card__favorite"
+                type="button"
+                aria-label="Добавить в избранное"
+            >
+                <!-- <svg class="video-card__icon" :class="isFavorite ? 'active' : ''"> -->
                 <svg class="video-card__icon">
-                    <use class="star-o" xlink:href="../assets/img/sprite.svg#star-ob" />
-                    <use class="star" xlink:href="../assets/img/sprite.svg#star" />
+                    <use xlink:href="../assets/img/sprite.svg#star-ob" v-if="!isFavorite" />
+                    <use
+                        class="star-o"
+                        xlink:href="../assets/img/sprite.svg#star"
+                        v-if="isFavorite"
+                    />
                 </svg>
             </button>
         </article>
@@ -26,18 +36,24 @@
 <script setup>
 import { convertDuration } from '@/utils/utils';
 import { defineProps } from 'vue';
+import { useVideoStore } from '@/store/VideoStore';
+const store = useVideoStore();
+
+const change = (id) => {
+    store.handleChangeFavorite(id);
+};
 
 const props = defineProps({
     video: Object,
 });
 
-console.log();
+let isFavorite = store.favoriteIds.includes(props.video.id);
 
 const img =
     props.video.snippet.thumbnails.standard?.url || props.video.snippet.thumbnails.high?.url;
 </script>
 
-<style scoped>
+<style>
 .video-card {
     position: relative;
 }
@@ -71,6 +87,7 @@ const img =
 .video-card__favorite.active .star {
     display: block;
 }
+
 .video-card__icon {
     width: 20px;
     height: 20px;

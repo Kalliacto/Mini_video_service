@@ -52,7 +52,7 @@ const props = defineProps({
 });
 </script>
 
-<style scoped>
+<style>
 .video {
     padding-top: 80px;
 }

@@ -4,12 +4,18 @@ const API_KEY = 'AIzaSyBQY48SDfYUUZJEUbFFX2aDM9nKjvYIIfg';
 const VIDEOS_URL = 'https://www.googleapis.com/youtube/v3/videos';
 const SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 
+const favoriteIds = localStorage.getItem('favoriteVideosYT')
+    ? JSON.parse(localStorage.getItem('favoriteVideosYT'))
+    : [];
+
 export const useVideoStore = defineStore('VideoStore', {
     // state
     state: () => ({
         videos: [],
         oneVideo: {},
         similarView: [],
+        favoriteIds: favoriteIds,
+        favoriteList: [],
     }),
     // actions
     actions: {
@@ -52,6 +58,32 @@ export const useVideoStore = defineStore('VideoStore', {
                 return (this.similarView = videos.items);
             } catch (error) {
                 return console.error('error: ', error);
+            }
+        },
+        async fetchGetFavoriteVideos() {
+            try {
+                if (this.favoriteIds.length === 0) {
+                    return { items: [] };
+                }
+
+                const res = await fetch(
+                    `${VIDEOS_URL}?part=contentDetails,id,snippet,statistics&maxResults=12&id=${this.favoriteIds.join(
+                        ','
+                    )}&key=${API_KEY}`
+                );
+                const videos = await res.json();
+                return (this.favoriteList = videos.items);
+            } catch (error) {
+                console.error('error: ', error);
+            }
+        },
+        handleChangeFavorite(videoId) {
+            if (this.favoriteIds.includes(videoId)) {
+                this.favoriteIds.splice(this.favoriteIds.indexOf(videoId), 1);
+                localStorage.setItem('favoriteVideosYT', JSON.stringify(this.favoriteIds));
+            } else {
+                this.favoriteIds.push(videoId);
+                localStorage.setItem('favoriteVideosYT', JSON.stringify(this.favoriteIds));
             }
         },
     },

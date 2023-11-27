@@ -1,6 +1,6 @@
 <template>
     <section class="video-list">
-        <div class="container" v-if="Object.keys(props.videos).length">
+        <div class="container" v-if="props.videos?.length">
             <h2 class="video-list__title">{{ title }}</h2>
             <ul class="video-list__items">
                 <video-card v-for="video in props.videos" :video="video" :key="video.id" />
@@ -20,6 +20,7 @@ const props = defineProps({
     videos: Object,
     title: String,
 });
+
 </script>
 
 <style scoped>
