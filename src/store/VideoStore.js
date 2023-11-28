@@ -81,6 +81,13 @@ export const useVideoStore = defineStore('VideoStore', {
             if (this.favoriteIds.includes(videoId)) {
                 this.favoriteIds.splice(this.favoriteIds.indexOf(videoId), 1);
                 localStorage.setItem('favoriteVideosYT', JSON.stringify(this.favoriteIds));
+
+                if (this.favoriteList.length) {
+                    this.favoriteList.splice(
+                        this.favoriteList.findIndex((el) => el.id === videoId),
+                        1
+                    );
+                }
             } else {
                 this.favoriteIds.push(videoId);
                 localStorage.setItem('favoriteVideosYT', JSON.stringify(this.favoriteIds));

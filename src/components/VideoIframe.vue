@@ -1,6 +1,6 @@
 <template>
     <section class="video">
-        <div class="container" v-if="props.video.kind">
+        <div class="container">
             <div class="video__player">
                 <iframe
                     class="video__iframe"
@@ -27,29 +27,46 @@
                         {{ props.video.snippet.description }}
                     </p>
                 </div>
-                <button class="video__link favorite" href="/favorite.html">
-                    <span class="video__no-favorite">Избранное</span>
-                    <span class="video__favorite">В избранном</span>
+                <button
+                    @click="change(props.video.id)"
+                    class="video__link favorite"
+                    href="/favorite.html"
+                >
+                    <span v-if="!isFavoriteV" class="video__favorite">Избранное</span>
+                    <span v-else class="video__favorite">В избранном</span>
                     <svg class="video__icon">
-                        <use xlink:href="../assets/img/sprite.svg#star-ob" />
+                        <use v-if="!isFavoriteV" xlink:href="../assets/img/sprite.svg#star-ob" />
+                        <use class="star" xlink:href="../assets/img/sprite.svg#star" v-else />
                     </svg>
                 </button>
             </div>
-        </div>
-        <div class="container" v-else>
-            <my-preload />
         </div>
     </section>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import { formatDate } from '@/utils/utils';
-import MyPreload from '@/components/MyPreload.vue';
+
+import { useVideoStore } from '@/store/VideoStore';
+const store = useVideoStore();
 
 const props = defineProps({
     video: Object,
 });
+
+let isFavoriteV = ref(store.favoriteIds.includes(props.video.id));
+console.log(props.video.id);
+
+const change = (id) => {
+    store.handleChangeFavorite(id);
+
+    if (isFavoriteV.value) {
+        return (isFavoriteV.value = false);
+    } else {
+        return (isFavoriteV.value = true);
+    }
+};
 </script>
 
 <style>
@@ -110,20 +127,6 @@ const props = defineProps({
     gap: 4px;
 }
 
-.video__link .video__no-favorite {
-    display: flex;
-    gap: 4px;
-}
-.video__link .video__favorite {
-    display: none;
-}
-.video__link.active .video__no-favorite {
-    display: none;
-}
-.video__link.active .video__favorite {
-    display: flex;
-    gap: 4px;
-}
 .video__icon {
     width: 20px;
     height: 20px;
@@ -152,8 +155,11 @@ const props = defineProps({
     }
 }
 @media screen and (max-width: 768px) {
-    .video__container {
+    /* .video__container {
         flex-direction: column-reverse;
+    } */
+    .video__favorite {
+        display: none;
     }
 }
 </style>

@@ -21,9 +21,13 @@
             >
                 <!-- <svg class="video-card__icon" :class="isFavorite ? 'active' : ''"> -->
                 <svg class="video-card__icon">
-                    <use xlink:href="../assets/img/sprite.svg#star-ob" v-if="!isFavorite" />
                     <use
-                        class="star-o"
+                        class="star"
+                        xlink:href="../assets/img/sprite.svg#star-ob"
+                        v-if="!isFavorite"
+                    />
+                    <use
+                        class="star"
                         xlink:href="../assets/img/sprite.svg#star"
                         v-if="isFavorite"
                     />
@@ -35,19 +39,25 @@
 
 <script setup>
 import { convertDuration } from '@/utils/utils';
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import { useVideoStore } from '@/store/VideoStore';
 const store = useVideoStore();
-
-const change = (id) => {
-    store.handleChangeFavorite(id);
-};
 
 const props = defineProps({
     video: Object,
 });
 
-let isFavorite = store.favoriteIds.includes(props.video.id);
+let isFavorite = ref(store.favoriteIds.includes(props.video.id));
+
+const change = (id) => {
+    store.handleChangeFavorite(id);
+
+    if (isFavorite.value) {
+        return (isFavorite.value = false);
+    } else {
+        return (isFavorite.value = true);
+    }
+};
 
 const img =
     props.video.snippet.thumbnails.standard?.url || props.video.snippet.thumbnails.high?.url;
@@ -81,13 +91,14 @@ const img =
     top: 12px;
     right: 12px;
 }
+/* 
 .video-card__favorite .star {
     display: none;
 }
 .video-card__favorite.active .star {
     display: block;
 }
-
+*/
 .video-card__icon {
     width: 20px;
     height: 20px;

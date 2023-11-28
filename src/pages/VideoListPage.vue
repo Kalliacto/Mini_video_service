@@ -12,6 +12,7 @@ import MySearch from '@/components/MySearch.vue';
 import MyHero from '@/components/MyHero.vue';
 import VideoList from '@/components/VideoList.vue';
 import { useVideoStore } from '@/store/VideoStore';
+
 const store = useVideoStore();
 </script>
 
