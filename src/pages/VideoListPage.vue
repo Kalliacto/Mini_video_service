@@ -14,8 +14,6 @@ import VideoList from '@/components/VideoList.vue';
 import { useVideoStore } from '@/store/VideoStore';
 
 const store = useVideoStore();
-
-store.oneVideo = {};
 </script>
 
 <style></style>

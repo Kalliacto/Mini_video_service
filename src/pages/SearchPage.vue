@@ -1,19 +1,17 @@
 <template>
     <my-header />
-    <main>
-        <my-search />
-        <video-list :title="`Избранное`" :videos="store.favoriteList" />
-    </main>
-    <my-footer />
+    <my-search />
+    <video-list :title="`По запросу найдено...`" :videos="store.similarView" />
 </template>
 
 <script setup>
+import MyHeader from '@/components/MyHeader.vue';
 import MySearch from '@/components/MySearch.vue';
 import VideoList from '@/components/VideoList.vue';
 import { useVideoStore } from '@/store/VideoStore';
 
 const store = useVideoStore();
-store.fetchGetFavoriteVideos();
+console.log(1);
 </script>
 
-<style></style>
+<style scoped></style>

@@ -1,8 +1,14 @@
 <template>
     <section class="search">
         <div class="container">
-            <form class="search__form">
-                <input class="search__input" type="search" placeholder="Найти видео..." />
+            <form class="search__form" @submit.prevent="searchVideos">
+                <input
+                    v-model.trim="str"
+                    class="search__input"
+                    type="search"
+                    placeholder="Найти видео..."
+                    name="search"
+                />
                 <button class="search__btn" type="submit">
                     <span>поиск</span>
                     <svg class="search__icon">
@@ -14,9 +20,17 @@
     </section>
 </template>
 
-<script>
-export default {
-    name: 'MySearch',
+<script setup>
+import { useVideoStore } from '@/store/VideoStore';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const store = useVideoStore();
+const router = useRouter();
+const str = ref('');
+
+const searchVideos = () => {
+    store.fetchSearchVideos(str.value).then(router.push({ path: '/search' }));
 };
 </script>
 

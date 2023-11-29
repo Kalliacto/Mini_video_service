@@ -22,19 +22,22 @@ import VideoIframe from '@/components/VideoIframe.vue';
 import MyPreload from '@/components/MyPreload.vue';
 import { useRouter } from 'vue-router';
 import { useVideoStore } from '@/store/VideoStore';
+import { watchEffect } from 'vue';
 
 const store = useVideoStore();
 const router = useRouter();
 const id = router.currentRoute._value.params.id;
-// Чтото теряется в сторе при отрисовке лайка
 
-store.fetchOneVideo(id);
+watchEffect(async () => {
+    await store.fetchOneVideo(id);
 
-if (store.oneVideo.kind) {
-    const searchQuery = store.oneVideo.snippet.title;
-    // console.log(searchQuery);
-    store.fetchSearchVideos(searchQuery);
-}
+    await store.oneVideo.id;
+
+    if (store.oneVideo.kind) {
+        const searchQuery = store.oneVideo.snippet.title;
+        store.fetchSearchVideos(searchQuery);
+    }
+});
 </script>
 
 <style scoped></style>

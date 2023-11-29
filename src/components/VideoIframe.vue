@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, watchEffect } from 'vue';
 import { formatDate } from '@/utils/utils';
 
 import { useVideoStore } from '@/store/VideoStore';
@@ -58,9 +58,11 @@ const props = defineProps({
 
 let isFavoriteV;
 
-if (props.id === props.video.id) {
-    isFavoriteV = ref(store.favoriteIds.includes(props.video.id));
-}
+watchEffect(() => {
+    if (props.id === props.video.id) {
+        isFavoriteV = ref(store.favoriteIds.includes(props.video.id));
+    }
+});
 
 const change = (id) => {
     store.handleChangeFavorite(id);

@@ -55,7 +55,7 @@ export const useVideoStore = defineStore('VideoStore', {
                     );
                 }
                 const videos = await res.json();
-                return (this.similarView = videos.items);
+                return (this.similarView = await videos.items);
             } catch (error) {
                 return console.error('error: ', error);
             }
