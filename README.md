@@ -1,5 +1,5 @@
 ### Промежуточный вариант можно увидеть здесь:
-- https://comfy-taiyaki-0c5402.netlify.app/#/
+- https://deft-bubblegum-04fbbb.netlify.app/
 
 ## Project setup
 ```
