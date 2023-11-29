@@ -53,10 +53,14 @@ const store = useVideoStore();
 
 const props = defineProps({
     video: Object,
+    id: String,
 });
 
-let isFavoriteV = ref(store.favoriteIds.includes(props.video.id));
-console.log(props.video.id);
+let isFavoriteV;
+
+if (props.id === props.video.id) {
+    isFavoriteV = ref(store.favoriteIds.includes(props.video.id));
+}
 
 const change = (id) => {
     store.handleChangeFavorite(id);

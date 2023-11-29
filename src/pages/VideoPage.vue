@@ -2,7 +2,7 @@
     <my-header />
     <main>
         <my-search />
-        <video-iframe :video="store.oneVideo" v-if="Object.keys(store.oneVideo).length" />
+        <video-iframe :video="store.oneVideo" :id="id" v-if="Object.keys(store.oneVideo).length" />
         <video-list
             :title="`Похожие видео`"
             :videos="store.similarView"

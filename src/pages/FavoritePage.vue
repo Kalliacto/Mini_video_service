@@ -10,10 +10,11 @@
 <script setup>
 import MySearch from '@/components/MySearch.vue';
 import VideoList from '@/components/VideoList.vue';
-
 import { useVideoStore } from '@/store/VideoStore';
+
 const store = useVideoStore();
 store.fetchGetFavoriteVideos();
+store.oneVideo = {};
 </script>
 
 <style></style>
