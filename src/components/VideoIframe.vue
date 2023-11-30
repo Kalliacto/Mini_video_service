@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 <button
-                    @click="change(props.video.id)"
+                    @click="change(props.video.id.videoId || props.video.id)"
                     class="video__link favorite"
                     href="/favorite.html"
                 >

@@ -1,7 +1,7 @@
 <template>
     <li class="video-list__item">
         <article class="video-card">
-            <router-link class="video-list__link" :to="'/video/' + props.video.id">
+            <router-link class="video-list__link" :to="'/video/' + id">
                 <img
                     class="video-card__thumbnail"
                     :src="img"
@@ -14,7 +14,7 @@
                 </p>
             </router-link>
             <button
-                @click="change(props.video.id)"
+                @click="change(id)"
                 class="video-card__favorite"
                 type="button"
                 aria-label="Добавить в избранное"
@@ -47,7 +47,9 @@ const props = defineProps({
     video: Object,
 });
 
-let isFavorite = ref(store.favoriteIds.includes(props.video.id));
+let id = props.video.id.videoId || props.video.id;
+
+let isFavorite = ref(store.favoriteIds.includes(id));
 
 const change = (id) => {
     store.handleChangeFavorite(id);

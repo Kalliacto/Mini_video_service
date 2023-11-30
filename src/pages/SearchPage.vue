@@ -1,7 +1,10 @@
 <template>
     <my-header />
-    <my-search />
-    <video-list :title="`По запросу найдено...`" :videos="store.similarView" />
+    <main>
+        <my-search />
+        <video-list :title="`По запросу найдено...`" :videos="store.similarView" />
+    </main>
+    <my-footer />
 </template>
 
 <script setup>
@@ -11,7 +14,6 @@ import VideoList from '@/components/VideoList.vue';
 import { useVideoStore } from '@/store/VideoStore';
 
 const store = useVideoStore();
-console.log(1);
 </script>
 
 <style scoped></style>

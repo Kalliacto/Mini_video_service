@@ -20,7 +20,6 @@ const props = defineProps({
     videos: Object,
     title: String,
 });
-
 </script>
 
 <style scoped>
